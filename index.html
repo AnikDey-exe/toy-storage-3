@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Toys Storage</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+  <script src="https://raw.githack.com/fcor/arjs-gestures/master/dist/gestures.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+  <script src="createbutton.js"></script>
+  <script src="markerhandler.js"></script>
+  <script src="addmarker.js"></script>
+
+  <!--Firebase-->
+  <script type="module" src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+  <script type="module" src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    //import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyApsNvY00EH5cWa4x4vVcao-29ST1cM5QQ",
+      authDomain: "toy-ar.firebaseapp.com",
+      projectId: "toy-ar",
+      storageBucket: "toy-ar.appspot.com",
+      messagingSenderId: "148038063987",
+      appId: "1:148038063987:web:6a71623ca282a6ecae5706"
+    };
+  
+     // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+
+  <!-- Local StyleSheet -->
+  <link rel="stylesheet" href="style.css"/>
+ 
+  
+  <!--Marker Handler Src-->
+ 
+
+</head>
+
+<body style="margin : 0px; overflow: hidden;">
+
+  <a-scene 
+  id="main-scene"
+    embedded vr-mode-ui="enabled: false"     
+    arjs="sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;"
+    gesture-detector
+    addbtn>
+
+    <!-- Camera -->
+    <a-entity camera>
+    </a-entity>
+
+    <a-assets>
+      <a-asset-item id="toy_car" src="./assets/toy_car/scene.gltf"></a-asset-item>
+    </a-assets>
+
+    <a-marker id="toy-marker" type="pattern" url="assets/pattern-car.patt" cursor="rayOrigin: mouse" markerhandler>
+        <a-entity id="car-model" position="-1 0 0" scale="1 1 1" 
+        gltf-model="#toy_car"
+        gesture-handler
+        createmarker>
+        </a-entity>
+
+        <a-plane position="0 0 0" width="2" height="1.5" rotation="-90 0 0">
+            <a-plane position="0 0.89 0.02" width="2" height="0.3" rotation="0 0 0" color="#F0C30F">
+              <a-entity position="0 0 0.1" rotation="0 0 0"
+                text="font:monoid;value:Toy Car;color:black;width: 1.8;height:1;align:center;"></a-entity>
+            </a-plane>
+    
+            <a-entity position="0 0 0.1" rotation="0 0 0"
+              text="color: black; align: center; width: 2; font: monoid;
+                   value: This military grade beauty can outrun most vehicles in this world. Built for sturdiness and speed, you can use this as \n the ultimate getaway.">
+            </a-entity>
+        </a-plane>
+    </a-marker>
+  </a-scene>
+
+  <!-- Button Main Div -->
+  <div id="button-div">
+  </div>
+ 
+</body>
+
+</html>
